@@ -1,0 +1,19 @@
+body{
+	background-image: url(img.png);
+	background-size: cover;
+	background-color: black;
+	text-align: center;
+}
+
+.button{
+	padding: 25px 100px 25px 100px;
+	border-radius: 50px;
+	background-color: #0fff0f;
+	position: relative;
+	top:300px;
+	bottom:50px;
+	-webkit-transform: scale(1.05);/*Grows in size like Angry Birds button*/
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+}

@@ -7,7 +7,11 @@ body{
 .button{
 	padding: 25px 100px 25px 100px;
 	border-radius: 50px;
+<<<<<<< HEAD
 	background-color: white;
+=======
+	background-color: green;
+>>>>>>> 37a5572a0f7c123dcbe66d4b3ee0545b9f348377
 	position: relative;
 	top:100px;
 }

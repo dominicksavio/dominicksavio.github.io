@@ -1,13 +1,21 @@
 body{
 	background:linear-gradient(to right,red,blue);
 	text-align: center;
+<<<<<<< HEAD
 	color:white;
+=======
+	color:green;
+>>>>>>> 169ad54def0e0a38badd4de6b6e0b7342d37ad6c
 }
 
 .button{
 	padding: 25px 100px 25px 100px;
 	border-radius: 50px;
+<<<<<<< HEAD
 	background-color:green;
+=======
+	background-color: white;
+>>>>>>> 169ad54def0e0a38badd4de6b6e0b7342d37ad6c
 	position: relative;
 	top:100px;
 }

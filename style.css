@@ -1,7 +1,5 @@
 body{
-	background-image: url(img.png);
-	background-size: cover;
-	background-color: black;
+	background:linear-gradient(to right,red,blue);
 	text-align: center;
 }
 
@@ -10,8 +8,9 @@ body{
 	border-radius: 50px;
 	background-color: #0fff0f;
 	position: relative;
-	top:300px;
-	bottom:50px;
+	top:100px;
+}
+.button:hover{
 	-webkit-transform: scale(1.05);/*Grows in size like Angry Birds button*/
     -moz-transform: scale(1.05);
     -ms-transform: scale(1.05);

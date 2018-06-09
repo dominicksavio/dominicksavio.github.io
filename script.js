@@ -1,4 +1,5 @@
 var css = document.querySelector("h3");
+var mes = document.querySelector("h4");
 var color1 = document.querySelector(".color1");
 var color2 = document.querySelector(".color2");
 var color3 = document.querySelector(".color3");
@@ -17,6 +18,7 @@ function setGradient() {
 	color3.value;
 	
 	css.textContent = body.style.background + but.style.background + ";";
+	mes.textContent = "Please help me with more ideas or themes you can come up with :p"
 }
 color1.addEventListener("input", setGradient);
 color2.addEventListener("input", setGradient);

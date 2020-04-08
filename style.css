@@ -1,40 +1,164 @@
-body {
-    font: 'Raleway', sans-serif;
-    color: rgba(0,0,0,.5);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: .5em;
-    top: 15%;
-    background: linear-gradient(to right, rgb(90, 157, 196) , rgb(5, 24, 34)); /* Standard syntax */
-}
 
-h1 {
-    font: 600 3.5em 'Raleway', sans-serif;
-    color: rgba(0,0,0,.5);
-    text-align: center;
-    text-transform: uppercase;
-    letter-spacing: .5em;
-    width: 100%;
+*{
+	margin:0;
+	font-family: 'Cedarville Cursive', cursive;
+	font-size: 40px;
 }
-
-h3 {
-    font: 900 1em 'Raleway', sans-serif;
-    color: rgba(0,0,0,.5);
-    text-align: center;
-    text-transform: none;
-    letter-spacing: 0.01em;
+.quiz{  
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	text-align: center;	
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	background-image: url(img/quiz.svg);
+	overflow-x: hidden;
 
 }
-.button{
-    padding: 25px 100px 25px 100px;
-    border-radius: 50px;
-    background-color:rgb(95, 18, 24);
-    position: relative;
-    bottom:25%;
+
+#quiz{
+	visibility: hidden;
 }
-.button:hover{
-    -webkit-transform: scale(1.05);/*Grows in size like Angry Birds button*/
-    -moz-transform: scale(1.05);
-    -ms-transform: scale(1.05);
-    -o-transform: scale(1.05);
+
+.button {
+    position: absolute;
+    top: 75%;
+    padding: 16px 32px;
+	background-color: white;
+	color: black;
+	border: 2px solid #000;
+	border-radius: 10px;
+	
+	text-align: center;
+	margin: 4px -50px;
+	transition-duration: 0.8s;
+	cursor: pointer;
 }
+.button:hover {
+	background-color: #000;
+	color: white;
+}
+.buttons {
+    
+
+    padding: 16px 32px;
+	background-color: white;
+	color: black;
+	/*border: 2px solid #000;*/
+	border-radius: 10px;
+	
+	text-align: center;
+	
+	transition-duration: 0.8s;
+	cursor: pointer;
+}
+.buttons:hover {
+	background-color: #000;
+	color: white;
+}
+#intro{
+	transition: 0.4s;
+
+}
+
+
+
+
+
+ /* Container holding the image and the text */
+.container {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Bottom left text */
+.bottom-left {
+  position: absolute;
+  bottom: 8px;
+  left: 16px;
+}
+
+/* Top left text */
+.top-left {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+/* Top right text */
+.top-right {
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+/* Bottom right text */
+.bottom-right {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+}
+
+/* Centered text */
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+} 
+
+table{
+	visibility: hidden;
+	width: 100%;
+	text-align: center;
+}
+
+
+
+
+
+
+
+
+
+/*		.item1 { grid-area: header; }
+		.item2 { grid-area: menu; }
+		.item3 { grid-area: main; }
+		.item4 { grid-area: right; }
+		.item5 { grid-area: footer; }
+		.item6 { grid-area: quiz; }
+
+		.grid-container {
+			display: none;
+			grid-template-areas:
+			'quiz quiz'
+			'header header'
+			'menu main '
+			'right footer';
+			grid-gap: 10px;
+			/*background-color: #2196F3;
+			padding: 10px;
+		}
+
+		.grid-container > div {
+			/*background-color: rgba(255, 255, 255, 0.8);
+
+			text-align: center;
+			padding: 20px 0;
+			font-size: 30px;
+			
+		}
+
+
+		
+*/
+/*@media only screen and (max-width: 850px) {
+			.quiz{
+				background-image: url(img/quizmob.svg);
+			}
+		}*/

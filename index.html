@@ -1,29 +1,293 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Gradient Background</title>
+	<title>Quiz</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+	<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="style.css">
+	 
+	<style type="text/css">
+	</style>
 </head>
-<body id="gradient">
-	<h1>Background Generator</h1>
-	left<input class="color1" type="color" name="color1" value="#5A9DC4"><br>
-	right<input class="color2" type="color" name="color2" value="#051822"><br>
-	button<input class="color3" type="color" name="color3" value="#5F1218"><br>
-	<h2>Current CSS Background</h2>
-	<h3></h3>
-	<h4></h4>
-	<!-- Begin MailChimp Signup Form -->
-		<div id="mc_embed_signup">
-			<form action="https://coolwebsite.us18.list-manage.com/subscribe/post?u=2413232c65d40542c307f8b71&amp;id=96187b0c1f" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-			<div id="mc_embed_signup_scroll">
-			<!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-		    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_2413232c65d40542c307f8b71_96187b0c1f" tabindex="-1" value=""></div>
-		    <h1><div class="clear"><input type="submit" value="Find Out More by dominic" name="subscribe" id="mc-embedded-subscribe" class="button"></div></h1>
-		    </div>
-			</form>
+<body onload="device()">
+	<div id="intro" class="quiz">
+		    <button class="button" id="button" onmouseout="introout()" onmouseover="introover()"  onclick="introFun()">Start</button>
+			
+	</div>
+	
+<!-- 	<div id="grid" class="grid-container">
+		<div class="item1 container">
+ 			<img  src="img/quizbg.png"> 
+			<img src="img/cat/angry.png" class="top-left">
+			<img src="img/cat/think.png" class="top-right">
 		</div>
+		<div class="item2 buttons">Menu</div>
+		<div class="item3 buttons">Main</div>  
+		<div class="item4 buttons">Right</div>
+		<div class="item5 buttons">Footer</div>
+		<div class="item6">quiz</div>
+	</div>
+ -->
+ 	<table border="0">
+ 		<tr>
+ 			<td  id="thedisplay" colspan="2" style="border: 2px solid black;border-radius: 50px;text-align: center; display: none;">
+ 					<p id="quiz" style="width: 100%;display: none;">quiz</p>
+ 			 		<video id="result" onpause="counting++;" style="display: none;margin: 0 auto; width: 400px;" src="effects/prize.mp4"></video>
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td colspan="2" style="text-align: left;">
 
-	<!--End mc_embed_signup-->
-	<script type="text/javascript" src="script.js"></script>
+				<img id="img" width="500" height="300">            	
+            </td>
+ 		</tr>
+ 		<tr>
+ 			<td id="a" class="buttons" style="display: none;" onclick="check('a')">
+ 				a
+ 			</td>
+ 			<td id="b" class="buttons" style="display: none;" onclick="check('b')">
+ 				b
+ 			</td>
+ 		</tr>
+ 		<tr>
+ 			<td id="c" class="buttons" style="display: none;" onclick="check('c')">
+ 				c
+ 			</td>
+ 			<td id="d" class="buttons" style="display: none;" onclick="check('d')">
+ 				d
+ 			</td>
+ 		</tr>
+ 	</table>
+ 	<button class="buttons" style="display: none;" id="try">Try Again</button>
+ 	<audio src="" id="audio"></audio>
+ 	<video id="theprize" style="display: none;"></video>
+	<script type="text/javascript">
+		var counter=[];
+		var time=[{s:0,f:30},{s:13.5,f:17}];
+		var superHeroes;
+		var counting = 0;
+		function check( c ){
+			var quiz = document.getElementById('quiz');
+			var result = document.getElementById('result');
+			var audio = document.getElementById('audio');
+			var img=document.getElementById('img');	
+			
+			if((c==superHeroes[counter[counting]][0]['ans'])&&(counting==counter.length-1)){
+				audio.pause();
+				table = document.getElementsByTagName('table')[0];
+				table.style.display = 'none';
+				theprize = document.getElementById('theprize');
+				theprize.src = 'effects/prize.mp4';
+				theprize.style.display = '';
+				theprize.play();
+			}
+			else if((c==superHeroes[counter[counting]][0]['ans'])&&(counting!=counter.length)){
+				
+				audio.pause();
+				quiz.innerHTML='';
+				img.src = 'img/cat/gotit.svg';
+				document.getElementById('a').style.display='none';
+				document.getElementById('b').style.display='none';
+				document.getElementById('c').style.display='none';
+				document.getElementById('d').style.display='none';
+
+				result.style.display = '';
+				result.src = 'effects/prize.mp4';
+				// console.log(time[counting].s);
+				// console.log(time[counting].f);
+
+				result.currentTime = time[counting].s;
+				result.play();
+				result.addEventListener("timeupdate", function(){
+						// console.log(this.currentTime);
+						// console.log(time[counting].f);
+						// console.log(this.currentTime >=  time[counting].f);
+						if(this.currentTime >= time[counting].f) {
+							this.pause();
+							result.style.display= 'none';
+							img.src = 'img/cat/think.svg';
+				document.getElementById('a').style.display='';
+				document.getElementById('b').style.display='';
+				document.getElementById('c').style.display='';
+				document.getElementById('d').style.display='';
+							fill();
+							audio.play();
+						}
+				});
+
+				
+
+			}
+			else{
+				// alert('wrong ans');
+				audio.pause();
+				quiz.innerHTML = 'Common you can do better!!!'
+				img.src = 'img/cat/angry.svg';
+				document.getElementById('a').style.display='none';
+				document.getElementById('b').style.display='none';
+				document.getElementById('c').style.display='none';
+				document.getElementById('d').style.display='none';
+				document.getElementById('try').style.display='';
+				document.getElementById('try').addEventListener('click',()=>{
+					document.getElementById('a').style.display='';
+					document.getElementById('b').style.display='';
+					document.getElementById('c').style.display='';
+					document.getElementById('d').style.display='';
+					fill();
+					img.src = 'img/cat/think.svg';
+					document.getElementById('try').style.display='none';
+					audio.play();
+				})
+			}
+			// console.log(counting)
+			// console.log(counter.length-1)
+
+			
+		}
+		function introFun(){
+
+			var img=document.getElementById('img');
+			var quiz=document.getElementById('quiz');
+			var meow =document.getElementById('audio');
+			var thedisplay = document.getElementById('thedisplay');
+			meow.src = 'effects/catlong.mp3'
+			startquiz();
+			meow.play();
+			meow.loop=true;
+			window.setTimeout(()=>{img.src='img/intro/st1.svg'},1000);
+			window.setTimeout(()=>{img.src='img/intro/st2.svg'},2000);
+			window.setTimeout(()=>{img.src='img/intro/st3.svg'},3000);
+			window.setTimeout(()=>{img.src='img/cat/start.svg'},4000);
+			window.setTimeout(()=>{img.src='img/cat/jump.svg'},5000);
+			window.setTimeout(()=>{img.src='img/cat/meow.svg'},6000);
+			window.setTimeout(()=>{
+						img.src='img/cat/think.svg';
+						quiz.style.visibility='visible';
+						thedisplay.style.display='';
+						document.getElementById('a').style.display='';
+						document.getElementById('b').style.display='';
+						document.getElementById('c').style.display='';
+						document.getElementById('d').style.display='';
+					},7000);
+			
+			
+		}
+		function startquiz(){
+			var element = document.getElementById("intro");
+  			element.classList.toggle("quiz");
+
+
+  			var button =  document.getElementById("button");
+  			button.style.display = 'none';
+			
+			var table =  document.getElementsByTagName("table")[0];
+  			table.style.visibility = 'visible';
+  			
+			
+			let requestURL = 'https://api.npoint.io/b95b976491477a31edd5';
+			let request = new XMLHttpRequest();
+			
+			request.open('GET', requestURL);
+			request.responseType = 'json'; // now we're getting a string!
+			window.setTimeout(requestonload(),7000);
+			
+			 function requestonload() {
+				
+				//superHeroes = request.response; // get the string from the response
+				superHeroes = 
+				{
+  "1": [
+    {
+      "question": "Raman is confident of speaking English _______ six months as he has been practising regularly _______ the last three weeks.",
+      "a": "during, for",
+      "b": "for, since",
+      "c": "for, in",
+      "d": "within, for",
+      "ans": "d",
+      "Explanation": "'Within' means ‘inside or not further than a particular area or space’. We can use within to refer to time. In ‘present perfect continuous tense’ to talk about a period of time: We use 'since' to refer back to a previous point in time. We use 'since' as a preposition with a date, a time or a noun phrase. We use 'for' with a period of time to refer to duration (how long something lasts). After a negative we can use 'for' and 'in' with the same meaning. In is particularly common in American. We use 'in' to say how long it takes someone to do something. We use 'during' before nouns and noun phrases to refer to when something happens over a period of time. During can refer to the whole time of the event. We don’t use 'during' when we refer to numbers and lengths of time. In this case, we use 'for'. Option (D) is correct."
+    }
+  ],
+  "2": [
+    {
+      "question": "His knowledge of the subject was excellent but his classroom performance was _______ .",
+      "a": "extremely poor",
+      "b": "good",
+      "c": "desirable",
+      "d": "praiseworthy",
+      "ans": "d",
+      "Explanation": "'but' is used to indicate that something in the second part of the sentence will contradict something that was said in the first part of the sentence. Option (A) is correct."
+    }
+  ]
+}
+				// var canvas = document.getElementById("myCanvas");
+				// var context = canvas.getContext('2d');
+				// var imageObj = new Image();
+				// imageObj.onload = function() {
+				// // draw cropped image
+				// var sourceX = 150;
+				// var sourceY = 0;
+				// var sourceWidth = 150;
+				// var sourceHeight = 150;
+				// var destWidth = sourceWidth;
+				// var destHeight = sourceHeight;
+				// var destX = canvas.width / 2 - destWidth / 2;
+				// var destY = canvas.height / 2 - destHeight / 2;
+
+				// context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+				
+				// }
+				// imageObj.src = 'img/cat/angry.svg';
+
+
+				for (var i = 0; i < Object.keys(superHeroes).length; i++) {
+					counter[i]=Math.floor(Math.random()*Object.keys(superHeroes).length+1);
+				}
+				fill();
+			}
+			
+		}
+		function fill(){
+			document.getElementById('quiz').style.display = ''
+				document.getElementById('quiz').innerHTML=superHeroes[counter[counting]][0]['question'];
+				// console.log(document.getElementById('quiz'));
+				document.getElementById('a').innerHTML=superHeroes[counter[counting]][0]['a'];
+				document.getElementById('b').innerHTML=superHeroes[counter[counting]][0]['b'];
+				document.getElementById('c').innerHTML=superHeroes[counter[counting]][0]['c'];
+				document.getElementById('d').innerHTML=superHeroes[counter[counting]][0]['d'];
+				
+
+				// console.log(superHeroes[counter[counting]][0]['ans']);
+				// console.log(superHeroes[counter[counting]][0]['Explanation']);
+		}
+		function introover(){
+			var bg = document.getElementById("intro");
+			bg.style.backgroundImage='none';
+			bg.style.backgroundColor='black';
+			
+		}
+		function introout(){
+			var bg = document.getElementById("intro");
+
+			myFunction(x);
+			bg.style.backgroundColor='transparent';
+			
+		}
+
+		function myFunction(x) {
+			var bg = document.getElementById("intro");
+		  if (x.matches) { // If media query matches
+		    bg.style.backgroundImage = "url(img/quizmob.svg)";
+		    document.body.style.fontSize = '35px';
+		  } else {
+		    bg.style.backgroundImage = "url(img/quiz.svg)";
+		    document.body.style.fontSize = '40px';
+		  }
+		}
+
+		var x = window.matchMedia("(max-width: 700px)")
+		myFunction(x) // Call listener function at run time
+		x.addListener(myFunction) // Attach listener function on state changes
+	</script>
 </body>
 </html>

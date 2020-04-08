@@ -2,7 +2,7 @@
 *{
 	margin:0;
 	font-family: 'Cedarville Cursive', cursive;
-	font-size: 40px;
+	/*font-size: 40px;*/
 }
 .quiz{  
 	height: 100%;
@@ -13,11 +13,12 @@
 	top: 0;
 	left: 0;
 	background-repeat: no-repeat;
-	background-size: cover;
 	background-position: center;
 	background-image: url(img/quiz.svg);
 	overflow-x: hidden;
 
+
+	background-size: contain;
 }
 
 #quiz{
@@ -45,7 +46,7 @@
 .buttons {
     
 
-    padding: 16px 32px;
+    /*padding: 16px 32px;*/
 	background-color: white;
 	color: black;
 	/*border: 2px solid #000;*/

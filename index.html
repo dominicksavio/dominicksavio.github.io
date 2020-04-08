@@ -7,10 +7,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="style.css">
 	 
-	<style type="text/css">
-	</style>
 </head>
-<body onload="device()">
+<body>
 	<div id="intro" class="quiz">
 		    <button class="button" id="button" onmouseout="introout()" onmouseover="introover()"  onclick="introFun()">Start</button>
 			
@@ -29,7 +27,7 @@
 		<div class="item6">quiz</div>
 	</div>
  -->
- 	<table border="0">
+ 	<table border="0" style="min-width: 100px;">
  		<tr>
  			<td  id="thedisplay" colspan="2" style="border: 2px solid black;border-radius: 50px;text-align: center; display: none;">
  					<p id="quiz" style="width: 100%;display: none;">quiz</p>
@@ -39,7 +37,7 @@
  		<tr>
  			<td colspan="2" style="text-align: left;">
 
-				<img id="img" width="500" height="300">            	
+				<img id="img" width="200" height="100">            	
             </td>
  		</tr>
  		<tr>
@@ -278,10 +276,10 @@
 			var bg = document.getElementById("intro");
 		  if (x.matches) { // If media query matches
 		    bg.style.backgroundImage = "url(img/quizmob.svg)";
-		    document.body.style.fontSize = '35px';
+		    document.getElementsByTagName('body')[0].style.fontSize = '20px';
 		  } else {
 		    bg.style.backgroundImage = "url(img/quiz.svg)";
-		    document.body.style.fontSize = '40px';
+		    document.getElementsByTagName('body')[0].style.fontSize = '40px';
 		  }
 		}
 

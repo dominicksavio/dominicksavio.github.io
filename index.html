@@ -2,36 +2,24 @@
 <html>
 <head>
 	<title>Quiz</title>
+	<link rel="icon" href="img/cat/gotit.svg">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 	<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet"> 
 	<link rel="stylesheet" type="text/css" href="style.css">
 	 
 </head>
-<body>
+<body id="body">
 	<div id="intro" class="quiz">
-		    <button class="button" id="button" onmouseout="introout()" onmouseover="introover()"  onclick="introFun()">Start</button>
+		    <button class="button size" id="button" onmouseout="introout()" onmouseover="introover()"  onclick="introFun()">Start</button>
 			
 	</div>
 	
-<!-- 	<div id="grid" class="grid-container">
-		<div class="item1 container">
- 			<img  src="img/quizbg.png"> 
-			<img src="img/cat/angry.png" class="top-left">
-			<img src="img/cat/think.png" class="top-right">
-		</div>
-		<div class="item2 buttons">Menu</div>
-		<div class="item3 buttons">Main</div>  
-		<div class="item4 buttons">Right</div>
-		<div class="item5 buttons">Footer</div>
-		<div class="item6">quiz</div>
-	</div>
- -->
  	<table border="0" style="min-width: 100px;">
  		<tr>
  			<td  id="thedisplay" colspan="2" style="border: 2px solid black;border-radius: 50px;text-align: center; display: none;">
- 					<p id="quiz" style="width: 100%;display: none;">quiz</p>
- 			 		<video id="result" onpause="counting++;" style="display: none;margin: 0 auto; width: 400px;" src="effects/prize.mp4"></video>
+ 					<p id="quiz" class=" size" style="width: 100%;display: none;">quiz</p>
+ 			 		<video id="result" onpause="counting++;fill();" style="display: none;margin: 0 auto; width: 400px;" src="effects/prize.mp4"></video>
  			</td>
  		</tr>
  		<tr>
@@ -41,37 +29,80 @@
             </td>
  		</tr>
  		<tr>
- 			<td id="a" class="buttons" style="display: none;" onclick="check('a')">
+ 			<td id="a" class="buttons size" style="display: none;" onclick="check('a')">
  				a
  			</td>
- 			<td id="b" class="buttons" style="display: none;" onclick="check('b')">
+ 			<td id="b" class="buttons size" style="display: none;" onclick="check('b')">
  				b
  			</td>
  		</tr>
  		<tr>
- 			<td id="c" class="buttons" style="display: none;" onclick="check('c')">
+ 			<td id="c" class="buttons size" style="display: none;" onclick="check('c')">
  				c
  			</td>
- 			<td id="d" class="buttons" style="display: none;" onclick="check('d')">
+ 			<td id="d" class="buttons size" style="display: none;" onclick="check('d')">
  				d
  			</td>
  		</tr>
  	</table>
  	<button class="buttons" style="display: none;" id="try">Try Again</button>
  	<audio src="" id="audio"></audio>
- 	<video id="theprize" style="display: none;"></video>
+ 	<div id="theprizeslot" style="display: none;text-align: center;">
+ 	<video id="theprize" style="display: none;" controls="true"></video>
+ 	<p id="theprizeresult" style="display: none;text-align: center;"></p>
+ 	</div>
 	<script type="text/javascript">
-		var counter=[];
-		var time=[{s:0,f:30},{s:13.5,f:17}];
+		var counter=0;
+		var negative = 0;
+		var time=[
+		{s:2*60+57
+		,f:3*60+1},
+		{s:42
+		,f:47},
+		{s:1*60+57
+		,f:2*60+5},
+		{s:2*60+15
+		,f:2*60+33},
+		{s:5*60+51
+		,f:6*60+50},
+		{s:2*60+45
+		,f:2*60+56 },
+		{s:17
+		,f:21},
+		{s:3*60+44
+		,f:3*60+50},
+		{s:4*60+25
+		,f:4*60+29},
+		{s:4*60+30
+		,f:4*60+34},
+
+		];
 		var superHeroes;
-		var counting = 0;
+		var counting = 1;
 		function check( c ){
 			var quiz = document.getElementById('quiz');
 			var result = document.getElementById('result');
 			var audio = document.getElementById('audio');
 			var img=document.getElementById('img');	
-			
-			if((c==superHeroes[counter[counting]][0]['ans'])&&(counting==counter.length-1)){
+			console.log(c);
+			console.log(superHeroes[counting][0]['ans']);
+			if((c==superHeroes[counting][0]['ans'])&&(counting==counter)){
+				document.getElementById('theprizeslot').style.display='';
+				document.getElementById('theprize').style.display='';
+				document.getElementById('theprizeresult').style.display='';
+				var point = 10-negative;
+				if(point>8)
+					document.getElementById('theprizeresult').innerHTML=point+'/10 You deserve it<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
+				else if(point>6)
+					document.getElementById('theprizeresult').innerHTML=point+'/10 you did good<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
+				else if(point>4)
+					document.getElementById('theprizeresult').innerHTML=point+'/10 could use some work<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
+				else if(point>2)
+					document.getElementById('theprizeresult').innerHTML=point+'/10 you could do better<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
+				else if(point>=0)
+					document.getElementById('theprizeresult').innerHTML=point+'/10 you can do this<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
+				else if(point<0)
+					document.getElementById('theprizeresult').innerHTML=point+'/10 how did you manage that?<br>YOU SHOULD TRY THIS<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
 				audio.pause();
 				table = document.getElementsByTagName('table')[0];
 				table.style.display = 'none';
@@ -80,7 +111,7 @@
 				theprize.style.display = '';
 				theprize.play();
 			}
-			else if((c==superHeroes[counter[counting]][0]['ans'])&&(counting!=counter.length)){
+			else if(c==superHeroes[counting][0]['ans']){
 				
 				audio.pause();
 				quiz.innerHTML='';
@@ -95,32 +126,29 @@
 				// console.log(time[counting].s);
 				// console.log(time[counting].f);
 
-				result.currentTime = time[counting].s;
+				result.currentTime = time[counting-1].s;
 				result.play();
 				result.addEventListener("timeupdate", function(){
 						// console.log(this.currentTime);
 						// console.log(time[counting].f);
 						// console.log(this.currentTime >=  time[counting].f);
-						if(this.currentTime >= time[counting].f) {
+						if(this.currentTime >= time[counting-1].f) {
 							this.pause();
 							result.style.display= 'none';
 							img.src = 'img/cat/think.svg';
-				document.getElementById('a').style.display='';
-				document.getElementById('b').style.display='';
-				document.getElementById('c').style.display='';
-				document.getElementById('d').style.display='';
+							document.getElementById('a').style.display='';
+							document.getElementById('b').style.display='';
+							document.getElementById('c').style.display='';
+							document.getElementById('d').style.display='';
 							fill();
 							audio.play();
 						}
 				});
-
-				
-
 			}
 			else{
 				// alert('wrong ans');
-				audio.pause();
-				quiz.innerHTML = 'Common you can do better!!!'
+				negative++;
+				quiz.innerHTML = superHeroes[counting][0]['Explanation'];
 				img.src = 'img/cat/angry.svg';
 				document.getElementById('a').style.display='none';
 				document.getElementById('b').style.display='none';
@@ -135,7 +163,6 @@
 					fill();
 					img.src = 'img/cat/think.svg';
 					document.getElementById('try').style.display='none';
-					audio.play();
 				})
 			}
 			// console.log(counting)
@@ -203,7 +230,7 @@
       "c": "for, in",
       "d": "within, for",
       "ans": "d",
-      "Explanation": "'Within' means ‘inside or not further than a particular area or space’. We can use within to refer to time. In ‘present perfect continuous tense’ to talk about a period of time: We use 'since' to refer back to a previous point in time. We use 'since' as a preposition with a date, a time or a noun phrase. We use 'for' with a period of time to refer to duration (how long something lasts). After a negative we can use 'for' and 'in' with the same meaning. In is particularly common in American. We use 'in' to say how long it takes someone to do something. We use 'during' before nouns and noun phrases to refer to when something happens over a period of time. During can refer to the whole time of the event. We don’t use 'during' when we refer to numbers and lengths of time. In this case, we use 'for'. Option (D) is correct."
+      "Explanation": "Common you can do better!!!<br>'Within' means ‘inside or not further than a particular area or space’. We can use within to refer to time. In ‘present perfect continuous tense’ to talk about a period of time: We use 'since' to refer back to a previous point in time. We use 'since' as a preposition with a date, a time or a noun phrase. We use 'for' with a period of time to refer to duration (how long something lasts). After a negative we can use 'for' and 'in' with the same meaning. In is particularly common in American. We use 'in' to say how long it takes someone to do something. We use 'during' before nouns and noun phrases to refer to when something happens over a period of time. During can refer to the whole time of the event. We don’t use 'during' when we refer to numbers and lengths of time. In this case, we use 'for'. Option (D) is correct."
     }
   ],
   "2": [
@@ -214,9 +241,89 @@
       "c": "desirable",
       "d": "praiseworthy",
       "ans": "d",
-      "Explanation": "'but' is used to indicate that something in the second part of the sentence will contradict something that was said in the first part of the sentence. Option (A) is correct."
+      "Explanation": "Your better than that<br>'but' is used to indicate that something in the second part of the sentence will contradict something that was said in the first part of the sentence. Option (A) is correct."
     }
-  ]
+  ],
+  "3":[
+  	{
+  		"question":"Select the word that fits the analogy:<br>Cook : Cook :: Fly : _______ ",
+  		"a":"Flyer",
+  		"b":"Flying",
+  		"c":"Flew",
+  		"d":"Flighter",
+  		"ans":"a",
+  		"Explanation": "YOU CAN<br>Verb : Noun <br>One who cooks is a cook and one who flies any aircraft is a flyer. Option (A) is correct."
+  	}
+  ],
+  "4":[
+  	{
+  		"question":"The dawn of the 21st century witnessed the melting glaciers oscillating between giving too much and too little to billions of people who depend on them for fresh water. The UN climate report estimates that without deep cuts to man-made emissions, at least 30% of the northern hemisphere’s surface permafrost could melt by the end of the century. Given this situation of imminent global exodus of billions of people displaced by rising seas, nation-states need to rethink their carbon footprint for political concerns, if not for environmental ones. Which one of the following statements can be inferred from the given passage ?",
+  		"a":"Nation-states do not have environmental concerns.",
+  		"b":"Nation-states are responsible for providing fresh water to billions of people.",
+  		"c":"Billions of people are responsible foe man-made emissions.",
+  		"d":"Billions of people are affected by melting glaciers.",
+  		"ans":"d",
+  		"Explanation":"Frankly im running out of quotes<br>Option (D) clearly explaining second last line of passage."
+  	}
+  ],
+  "5":[
+  	{
+  		"question":"There are multiple routes to reach from node 1 to node 2, as shown in the network. <img src='img/qs/1.png' width='100%' height='100%'>The cost of travel on an edge between two nodes is given in rupees. Nodes ‘a’, ‘b’, ‘c’, ‘d’, ‘e’, and ‘f’ are toll booths. The toll price at toll booths marked ‘a’ and ‘e’ is Rs. 200, and is Rs. 100 for the other toll booths. Which is the cheapest route from node 1 to node 2 ?",
+  		"a":"1−a−c−2",
+  		"b":"1−f−b−2",
+  		"c":"1−b−2",
+  		"d":"1−f−e−2",
+  		"ans":"b",
+  		"Explanation":"Didnt understand it either probably done as follows<br>(A) Cost of 1-a-c-2 :<br>100 + 100 + 200 = 400<br>(B) Cost of 1-f-b-2 :<br>100 + 0 + 200 = 300 <br>(C) Cost of 1-b-2 :<br>300 + 200 = 500 <br>(D) Cost of 1-f-e-2 :<br>200 + 100 + 100 = 400 <br>Hence, 1-f-b-2 is having minimum cost. Option (B) is correct."
+  	}
+  ],
+  "6":[
+  {
+  	"question":"Goods and Services Tax (GST) is an indirect tax introduced in India in 2017 that is imposed on the supply of goods and services, and it subsumes all indirect taxes except few. It is a destination-based tax imposed on goods and services used, and it is not imposed at the point of origin from where goods come. GST also has a few components specific to state governments, central government and Union Territories (UTs). Which one of the following statements can be inferred from the given passage ?",
+  	"a":"GST is imposed on the production of goods and services.",
+  	"b":"GST includes all indirect taxes.",
+  	"c":"GST does not have a component specific to UT.",
+  	"d":"GST is imposed at the point of usage of goods and services.",
+  	"ans":"d",
+  	"Explanation":"Dont read the news do you<br>Second statement 'It is a destination-based tax imposed on goods and services used, and it is not imposed at the point of origin from where goods come.'. Option (D) is correct.",
+
+  }],
+  "7":[{
+  	"question":"If P=3, R=27, T=243, then Q+S = ________ .",
+  	"a":"40",
+  	"b":"80",
+  	"c":"90",
+  	"d":"110",
+  	"ans":"c",
+  	"Explanation":"Sorry it wasnt a given<br>Given, sequence is in n-th power of 3. Starting from n=1 and position 'P' alphabetically order.<br>P = 31 = 3 <br>Q = 32 = 9<br>R = 33 = 27<br>S = 34 = 81<br>T = 35 = 243 <br>Therefore,<br>Q+S = 9+81 = 90 <br>Option (C) is correct."
+  }],
+  "8":[{
+  	"question":"The figure below shows an annular ring with outer and inner as b and a, respectively. The annular space has been painted in the form of blue colour circles touching the outer and inner periphery of annular space. If maximum n number of circles can be painted, then the unpainted area available in annular space is _________ . <img src='img/qs/2.png' width='100' height='100'>",
+  	"a":"π[(b2−a2)−(n/4)(b−a)2]",
+  	"b":"π[(b2−a2)−n(b−a)2]",
+  	"c":"π[(b2−a2)+(n/4)(b−a)2]",
+  	"d":"π[(b2−a2)+n(b−a)2]",
+  	"ans":"a",
+  	"Explanation":"Hope you got the pie<br>Area of 1 blue circle,<br>= π((b-a)/2)2<br>Hence, area of n blue circles,<br= nπ((b-a)/2)2<br>Now, Area of annular ring<br>= πb2 – πa2 <br>Now, answer is, Unpainted area:<br>= (Area of annular ring) – (Area of n blue color circles)<br>= ( πb2 – πa2 ) - ( nπ((b-a)/2)2 )<br>= π( b2 – a2 ) - π( (n/4)(b-a)2 )<br>= π[(b2−a2)−(n/4)(b−a)2] <br>Option (A) is correct."
+  }],
+  "9":[{
+  	"question":"Two straight lines are drawn perpendicular to each other in X−Y plane. If α and β are the acute angles the straight lines make with the X- axis, then α+β is ________ .",
+  	"a":"60°",
+  	"b":"90°",
+  	"c":"120°",
+  	"d":"180°",
+  	"ans":"b",
+  	"Explanation":"You might need to visualize this one<br>According to given question, <img src='img/qs/3.png' width='100' height='100'> Now, as we know that, in a tringle sum of internal angles is equal to 180°. That is,<br>→ ∠a + ∠b + ∠c = 180°<br>→ α + β + 90° = 180° <br>→ α + β = 180° - 90° = 90°<br>→ α + β = 90°<br>Option (B) is correct."
+  }],
+  "10":[{
+  	"question":"The total revenue of a company during 2014−2018 is shown in the bar graph. If the total expenditure of the company in each year is 500 million rupees, then the aggregate profit or loss (in percentage) on the total expenditure of the company during 2014−2018 is _________ . <img src='img/qs/4.png' height='100' width='100'>",
+  	"a":"16.67% profit",
+  	"b":"16.67% loss",
+  	"c":"20% profit",
+  	"d":"20% loss",
+  	"ans":"c",
+  	"Explanation":"Might not have been the easiest question out there<br>Bar-graph: 2014-2018, Total expenditure,<br>= 500 million/year = 500 × 5 <br>= 2500 million <br>Now, Revenue total (from the graph),<br>= 400 + 500 + 600 + 700 + 800<br>= 3000 million Therefore, Profit,<br>= 3000 - 2500 = 500 <br>Profit (in percentage),<br>= (500/2500)*100 %<br>= 20 % profit <br>Option (C) is correct."
+  }]
 }
 				// var canvas = document.getElementById("myCanvas");
 				// var context = canvas.getContext('2d');
@@ -238,21 +345,19 @@
 				// imageObj.src = 'img/cat/angry.svg';
 
 
-				for (var i = 0; i < Object.keys(superHeroes).length; i++) {
-					counter[i]=Math.floor(Math.random()*Object.keys(superHeroes).length+1);
-				}
+				counter = Object.keys(superHeroes).length;
 				fill();
 			}
 			
 		}
 		function fill(){
 			document.getElementById('quiz').style.display = ''
-				document.getElementById('quiz').innerHTML=superHeroes[counter[counting]][0]['question'];
+				document.getElementById('quiz').innerHTML=superHeroes[counting][0]['question'];
 				// console.log(document.getElementById('quiz'));
-				document.getElementById('a').innerHTML=superHeroes[counter[counting]][0]['a'];
-				document.getElementById('b').innerHTML=superHeroes[counter[counting]][0]['b'];
-				document.getElementById('c').innerHTML=superHeroes[counter[counting]][0]['c'];
-				document.getElementById('d').innerHTML=superHeroes[counter[counting]][0]['d'];
+				document.getElementById('a').innerHTML=superHeroes[counting][0]['a'];
+				document.getElementById('b').innerHTML=superHeroes[counting][0]['b'];
+				document.getElementById('c').innerHTML=superHeroes[counting][0]['c'];
+				document.getElementById('d').innerHTML=superHeroes[counting][0]['d'];
 				
 
 				// console.log(superHeroes[counter[counting]][0]['ans']);
@@ -274,13 +379,16 @@
 
 		function myFunction(x) {
 			var bg = document.getElementById("intro");
-		  if (x.matches) { // If media query matches
+			for (var i = 0; i < 6; i++) {
+				
+		 if (x.matches) { // If media query matches
 		    bg.style.backgroundImage = "url(img/quizmob.svg)";
-		    document.getElementsByTagName('body')[0].style.fontSize = '20px';
+		    document.getElementsByClassName('size')[i].style.fontSize = '20px';
 		  } else {
 		    bg.style.backgroundImage = "url(img/quiz.svg)";
-		    document.getElementsByTagName('body')[0].style.fontSize = '40px';
+		    document.getElementsByClassName('size')[i].style.fontSize = '40px';
 		  }
+		}
 		}
 
 		var x = window.matchMedia("(max-width: 700px)")

@@ -43,7 +43,13 @@
  			</td>
  			<td id="d" class="buttons size" style="display: none;" onclick="check('d')">
  				d
+ 			</td> 			
+ 		</tr>
+ 		<tr>
+ 			<td id="skip" class="buttons size" style="display: none;" onclick="check('skip')">
+ 				SKIP
  			</td>
+ 			<td></td>
  		</tr>
  	</table>
  	<button class="buttons" style="display: none;font-size: 30px" id="try">Try Again</button>
@@ -68,6 +74,7 @@
  	<p id="theprizeresult" style="display: none;text-align: center;"></p>
  	</div>
 	<script type="text/javascript">
+		var skipf = false;
 		var counter=0;
 		var negative = 0;
 		var point = 0;
@@ -142,7 +149,18 @@
 			var result = document.getElementById('result');
 			
 			var img=document.getElementById('img');	
-			if((c==superHeroes[counting][0]['ans'])&&(counting==counter)){
+			if(c=='skip'){
+				if(counting==counter){
+					document.getElementById('form').style.display = '';
+					document.getElementById('table').style.display = 'none';
+				}
+				else{
+					negative++;	
+					counting++;
+					fill();			
+				}
+			}
+			else if((c==superHeroes[counting][0]['ans'])&&(counting==counter)){
 				document.getElementById('form').style.display = '';
 				document.getElementById('table').style.display = 'none';
 				
@@ -156,6 +174,7 @@
 				document.getElementById('b').style.display='none';
 				document.getElementById('c').style.display='none';
 				document.getElementById('d').style.display='none';
+				document.getElementById('skip').style.display='none';
 
 				result.style.display = '';
 				result.src = 'effects/prize.mp4';
@@ -176,6 +195,7 @@
 							document.getElementById('b').style.display='';
 							document.getElementById('c').style.display='';
 							document.getElementById('d').style.display='';
+							document.getElementById('skip').style.display='';
 							fill();
 							
 						}
@@ -190,12 +210,14 @@
 				document.getElementById('b').style.display='none';
 				document.getElementById('c').style.display='none';
 				document.getElementById('d').style.display='none';
+				document.getElementById('skip').style.display='none';
 				document.getElementById('try').style.display='';
 				document.getElementById('try').addEventListener('click',()=>{
 					document.getElementById('a').style.display='';
 					document.getElementById('b').style.display='';
 					document.getElementById('c').style.display='';
 					document.getElementById('d').style.display='';
+					document.getElementById('skip').style.display='';
 					fill();
 					img.src = 'img/cat/think.svg';
 					document.getElementById('try').style.display='none';
@@ -235,6 +257,7 @@
 						document.getElementById('b').style.display='';
 						document.getElementById('c').style.display='';
 						document.getElementById('d').style.display='';
+						document.getElementById('').style.display='none';
 					},7000);
 			
 			

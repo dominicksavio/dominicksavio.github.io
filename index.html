@@ -87,8 +87,8 @@
 		,f:2*60+5},
 		{s:2*60+15
 		,f:2*60+33},
-		{s:5*60+51
-		,f:6*60+50},
+		{s:6*60+13
+		,f:6*60+20},
 		{s:2*60+45
 		,f:2*60+56 },
 		{s:17
@@ -108,8 +108,9 @@
 		const form=document.getElementById('form');
 		const scriptURL='https://script.google.com/macros/s/AKfycbySBIbojtGyCk_I19gBfoZ4u5VAgbAiBiB5Uz-T52u2e7jeV8M/exec';
 		form.addEventListener('submit', e => {
-			finished()
 			point = 10-negative;
+			finished()
+			
 			document.getElementById('form').score.value=point;
 			console.log(document.getElementById('form').score.value);
 		e.preventDefault()

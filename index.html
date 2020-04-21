@@ -1,475 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Quiz</title>
-	<link rel="icon" href="img/cat/gotit.svg">
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-	<link href="https://fonts.googleapis.com/css2?family=Cedarville+Cursive&display=swap" rel="stylesheet"> 
-	<link rel="stylesheet" type="text/css" href="style.css">
-	 
-</head>
-<body id="body">
-	<div id="intro" style="text-align: center;" class="quiz">
-		
-		    <button class="button size" id="button" onmouseout="introout()" onmouseover="introover()"  onclick="introFun()"><div style="font-family: 'Cedarville Cursive', cursive;">Due to many requests the font is changed from this to this</div> [Start?] </button>
-			
-	</div>
-	
- 	<table border="0" id="table" style="min-width: 100px;">
- 		<tr>
- 			<td  id="thedisplay" colspan="2" style="border: 2px solid black;border-radius: 50px;text-align: center; display: none;">
- 					<p id="quiz" class=" size" style="width: 100%;display: none;">quiz</p>
- 			 		<video id="result" onpause="counting++;fill();" style="display: none;margin: 0 auto; width: 400px;" src="effects/prize.mp4"></video>
- 			</td>
- 		</tr>
- 		<tr>
- 			<td colspan="2" style="text-align: left;">
+	<title>Dominic K Savio</title>
+	<link rel="stylesheet" type="text/css" href="quiz/style.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
+	<style type="text/css">
+	* {
+	  box-sizing: border-box;
+	  text-align: center;
+	}
 
-				<img id="img" width="250" height="250">            	
-            </td>
- 		</tr>
- 		<tr>
- 			<td id="a" class="buttons size" style="display: none;" onclick="check('a')">
- 				a
- 			</td>
- 			<td id="b" class="buttons size" style="display: none;" onclick="check('b')">
- 				b
- 			</td>
- 		</tr>
- 		<tr>
- 			<td id="c" class="buttons size" style="display: none;" onclick="check('c')">
- 				c
- 			</td>
- 			<td id="d" class="buttons size" style="display: none;" onclick="check('d')">
- 				d
- 			</td> 			
- 		</tr>
- 		<tr>
- 			<td id="skip" class="buttons size" style="display: none;" onclick="check('skip')">
- 				SKIP
- 			</td>
- 			<td></td>
- 		</tr>
- 	</table>
- 	<button class="buttons" style="display: none;font-size: 30px" id="try">Try Again</button>
- 	<form id="form" style="text-align: center;display: none;">
- 		Name if you please:<input type="text" name="email"><br>
- 		1:<input type="text" name="1"><br>
- 		2:<input type="text" name="2"><br>
- 		3:<input type="text" name="3"><br>
- 		4:<input type="text" name="4"><br>
- 		5:<input type="text" name="5"><br>
- 		6:<input type="text" name="6"><br>
- 		7:<input type="text" name="7"><br>
- 		8:<input type="text" name="8"><br>
- 		9:<input type="text" name="9"><br>
- 		10:<input type="text" name="10"><br>
- 		<input type="number" name="score" hidden="true">
- 		<input type="submit" name="submit">
- 		<input type="reset" name="reset">
- 	</form>
- 	<div id="theprizeslot" style="display: none;text-align: center;">
- 	<video id="theprize" style="display: none;" controls="true"></video>
- 	<p id="theprizeresult" style="display: none;text-align: center;"></p>
- 	</div>
+	/* Create three equal columns that floats next to each other */
+	.column {
+	  float: left;
+	  width: 33.33%;
+	  padding: 10px;
+	  height: 300px; /* Should be removed. Only for demonstration */
+	}
+
+	/* Clear floats after the columns */
+	.row:after {
+	  content: "";
+	  display: table;
+	  clear: both;
+	}
+	div {
+		font-size: 30px;
+		background-size: contain;
+		background-repeat: no-repeat;
+		height: 200px
+	}
+	 /* Responsive layout - when the screen is less than 600px wide, make the three columns stack on top of each other instead of next to each other */
+	@media screen and (max-width: 600px) {
+	  .column {
+	    width: 100%;
+	  }
+	} 
+	p:hover{
+		font-size: 150%;
+	}
+	p{
+		transition: 0.3s;	
+		display:inline;
+	}
+	.column:hover{
+		height: 170%;
+	}
+	.column{
+		transition: 0.3s;	
+		
+	}
+	::selection {
+		color: white;
+		background: black;
+	}
+	</style>
 	<script type="text/javascript">
-		var skipf = false;
-		var counter=0;
-		var negative = 0;
-		var point = 0;
-		var time=[
-		{s:2*60+57
-		,f:3*60+1},
-		{s:42
-		,f:47},
-		{s:1*60+57
-		,f:2*60+5},
-		{s:2*60+15
-		,f:2*60+33},
-		{s:6*60+13
-		,f:6*60+20},
-		{s:2*60+45
-		,f:2*60+56 },
-		{s:17
-		,f:21},
-		{s:3*60+44
-		,f:3*60+50},
-		{s:4*60+25
-		,f:4*60+29},
-		{s:4*60+30
-		,f:4*60+34},
-		{s:8*60+43
-		,f:9*60+7
-		}
-		];
-		var superHeroes;
-		var counting = 1;
-		const form=document.getElementById('form');
-		const scriptURL='https://script.google.com/macros/s/AKfycbySBIbojtGyCk_I19gBfoZ4u5VAgbAiBiB5Uz-T52u2e7jeV8M/exec';
-		form.addEventListener('submit', e => {
-			point = 10-negative;
-			finished()
-			
-			document.getElementById('form').score.value=point;
-			console.log(document.getElementById('form').score.value);
-		e.preventDefault()
-		fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-		  .then(response => console.log('Success!', response))
-		  .catch(error => console.error('Error!', error.message))
-
-		})
-		
-		function finished(){
-			document.getElementById('theprizeslot').style.display='';
-				document.getElementById('theprize').style.display='';
-				document.getElementById('theprizeresult').style.display='';
-				document.getElementById('form').style.display='none';
-				if(point>8)
-					document.getElementById('theprizeresult').innerHTML=point+'/10 You deserve it<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
-				else if(point>6)
-					document.getElementById('theprizeresult').innerHTML=point+'/10 you did good<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
-				else if(point>4)
-					document.getElementById('theprizeresult').innerHTML=point+'/10 could use some work<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
-				else if(point>2)
-					document.getElementById('theprizeresult').innerHTML=point+'/10 you could do better<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
-				else if(point>=0)
-					document.getElementById('theprizeresult').innerHTML=point+'/10 you can do this<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
-				else if(point<0)
-					document.getElementById('theprizeresult').innerHTML=point+'/10 how did you manage that?<br>YOU SHOULD TRY THIS<br><a href="https://www.geeksforgeeks.org/gate-cs-2020/">geeksforgeeks</a>';
-				
-				table = document.getElementsByTagName('table')[0];
-				table.style.display = 'none';
-				theprize = document.getElementById('theprize');
-				theprize.src = 'effects/prize.mp4';
-				theprize.style.display = '';
-				theprize.play();
-		}
-		function check( c ){
-			var quiz = document.getElementById('quiz');
-			var result = document.getElementById('result');
-			
-			var img=document.getElementById('img');	
-			if(c=='skip'){
-				if(counting==counter){
-					document.getElementById('form').style.display = '';
-					document.getElementById('table').style.display = 'none';
-				}
-				else{
-					negative++;	
-					counting++;
-					fill();			
-				}
-			}
-			else if((c==superHeroes[counting][0]['ans'])&&(counting==counter)){
-				document.getElementById('form').style.display = '';
-				document.getElementById('table').style.display = 'none';
-				
-			}
-			else if(c==superHeroes[counting][0]['ans']){
-				
-				
-				quiz.innerHTML='';
-				img.src = 'img/cat/gotit.svg';
-				document.getElementById('a').style.display='none';
-				document.getElementById('b').style.display='none';
-				document.getElementById('c').style.display='none';
-				document.getElementById('d').style.display='none';
-				document.getElementById('skip').style.display='none';
-
-				result.style.display = '';
-				result.src = 'effects/prize.mp4';
-				// console.log(time[counting].s);
-				// console.log(time[counting].f);
-
-				result.currentTime = time[counting-1].s;
-				result.play();
-				result.addEventListener("timeupdate", function(){
-						// console.log(this.currentTime);
-						// console.log(time[counting].f);
-						// console.log(this.currentTime >=  time[counting].f);
-						if(this.currentTime >= time[counting-1].f) {
-							this.pause();
-							result.style.display= 'none';
-							img.src = 'img/cat/think.svg';
-							document.getElementById('a').style.display='';
-							document.getElementById('b').style.display='';
-							document.getElementById('c').style.display='';
-							document.getElementById('d').style.display='';
-							document.getElementById('skip').style.display='';
-							fill();
-							
-						}
-				});
-			}
-			else{
-				// alert('wrong ans');
-				negative++;
-				quiz.innerHTML = superHeroes[counting][0]['Explanation'];
-				img.src = 'img/cat/angry.svg';
-				document.getElementById('a').style.display='none';
-				document.getElementById('b').style.display='none';
-				document.getElementById('c').style.display='none';
-				document.getElementById('d').style.display='none';
-				document.getElementById('skip').style.display='none';
-				document.getElementById('try').style.display='';
-				document.getElementById('try').addEventListener('click',()=>{
-					document.getElementById('a').style.display='';
-					document.getElementById('b').style.display='';
-					document.getElementById('c').style.display='';
-					document.getElementById('d').style.display='';
-					document.getElementById('skip').style.display='';
-					fill();
-					img.src = 'img/cat/think.svg';
-					document.getElementById('try').style.display='none';
-				})
-			}
-			// console.log(counting)
-			// console.log(counter.length-1)
-
+		window.onload = function (argument) {
+			var year=new Date()
+			document.getElementById('sem').innerHTML=(year.getFullYear()-2017)*2
 			
 		}
-		function introFun(){
-
-			var img=document.getElementById('img');
-			var quiz=document.getElementById('quiz');
-			
-			var thedisplay = document.getElementById('thedisplay');
-			
-			startquiz();
-			
-			
-			window.setTimeout(()=>{img.src='img/intro/st1.svg'},1000);
-			window.setTimeout(()=>{img.src='img/intro/st2.svg'},2000);
-			window.setTimeout(()=>{img.src='img/intro/st3.svg'},3000);
-			window.setTimeout(()=>{img.src='img/cat/start.svg'},4000);
-			window.setTimeout(()=>{img.src='img/cat/jump.svg'},5000);
-			window.setTimeout(()=>{
-				img.src='img/cat/meow.svg';
-				var mew=new Audio();
-				mew.src='effects/cat1.mp3';
-				mew.play()
-			},6000);
-			window.setTimeout(()=>{
-						img.src='img/cat/think.svg';
-						quiz.style.visibility='visible';
-						thedisplay.style.display='';
-						document.getElementById('a').style.display='';
-						document.getElementById('b').style.display='';
-						document.getElementById('c').style.display='';
-						document.getElementById('d').style.display='';
-						document.getElementById('').style.display='none';
-					},7000);
-			
-			
-		}
-		function startquiz(){
-			var element = document.getElementById("intro");
-  			element.classList.toggle("quiz");
-
-
-  			var button =  document.getElementById("button");
-  			button.style.display = 'none';
-			
-			var table =  document.getElementsByTagName("table")[0];
-  			table.style.visibility = 'visible';
-  			
-			
-			let requestURL = 'https://api.npoint.io/b95b976491477a31edd5';
-			let request = new XMLHttpRequest();
-			
-			request.open('GET', requestURL);
-			request.responseType = 'json'; // now we're getting a string!
-			window.setTimeout(requestonload(),7000);
-			
-			 function requestonload() {
-				
-				//superHeroes = request.response; // get the string from the response
-				superHeroes = 
-				{
-  "1": [
-    {
-      "question": "This is meant as an aptitude test the following are four option among which only one is the right one upon chosing the right one you will be presented with a famous one liner from a movie at the end attempt to remember the name of the movie/movies in the order and submit it with your name",
-      "a": "got it",
-      "b": "dont matter lets get on with it",
-      "c": "dont matter lets get on with it",
-      "d": "dont matter lets get on with it",
-      "ans": "a",
-      "Explanation": "Never mind jjust go with got it this time."
-    }
-  ],
-  "2": [
-    {
-      "question": "Raman is confident of speaking English _______ six months as he has been practising regularly _______ the last three weeks.",
-      "a": "during, for",
-      "b": "for, since",
-      "c": "for, in",
-      "d": "within, for",
-      "ans": "d",
-      "Explanation": "Common you can do better!!!<br>'Within' means ‘inside or not further than a particular area or space’. We can use within to refer to time. In ‘present perfect continuous tense’ to talk about a period of time: We use 'since' to refer back to a previous point in time. We use 'since' as a preposition with a date, a time or a noun phrase. We use 'for' with a period of time to refer to duration (how long something lasts). After a negative we can use 'for' and 'in' with the same meaning. In is particularly common in American. We use 'in' to say how long it takes someone to do something. We use 'during' before nouns and noun phrases to refer to when something happens over a period of time. During can refer to the whole time of the event. We don’t use 'during' when we refer to numbers and lengths of time. In this case, we use 'for'. Option (D) is correct."
-    }
-  ],
-  "3": [
-    {
-      "question": "His knowledge of the subject was excellent but his classroom performance was _______ .",
-      "a": "extremely poor",
-      "b": "good",
-      "c": "desirable",
-      "d": "praiseworthy",
-      "ans": "d",
-      "Explanation": "Your better than that<br>'but' is used to indicate that something in the second part of the sentence will contradict something that was said in the first part of the sentence. Option (A) is correct."
-    }
-  ],
-  "4":[
-  	{
-  		"question":"Select the word that fits the analogy:<br>Cook : Cook :: Fly : _______ ",
-  		"a":"Flyer",
-  		"b":"Flying",
-  		"c":"Flew",
-  		"d":"Flighter",
-  		"ans":"a",
-  		"Explanation": "YOU CAN<br>Verb : Noun <br>One who cooks is a cook and one who flies any aircraft is a flyer. Option (A) is correct."
-  	}
-  ],
-  "5":[
-  	{
-  		"question":"The dawn of the 21st century witnessed the melting glaciers oscillating between giving too much and too little to billions of people who depend on them for fresh water. The UN climate report estimates that without deep cuts to man-made emissions, at least 30% of the northern hemisphere’s surface permafrost could melt by the end of the century. Given this situation of imminent global exodus of billions of people displaced by rising seas, nation-states need to rethink their carbon footprint for political concerns, if not for environmental ones. Which one of the following statements can be inferred from the given passage ?",
-  		"a":"Nation-states do not have environmental concerns.",
-  		"b":"Nation-states are responsible for providing fresh water to billions of people.",
-  		"c":"Billions of people are responsible foe man-made emissions.",
-  		"d":"Billions of people are affected by melting glaciers.",
-  		"ans":"d",
-  		"Explanation":"Frankly im running out of quotes<br>Option (D) clearly explaining second last line of passage."
-  	}
-  ],
-  "6":[
-  	{
-  		"question":"There are multiple routes to reach from node 1 to node 2, as shown in the network. <img src='img/qs/1.png' width='100%' height='100%'>The cost of travel on an edge between two nodes is given in rupees. Nodes ‘a’, ‘b’, ‘c’, ‘d’, ‘e’, and ‘f’ are toll booths. The toll price at toll booths marked ‘a’ and ‘e’ is Rs. 200, and is Rs. 100 for the other toll booths. Which is the cheapest route from node 1 to node 2 ?",
-  		"a":"1−a−c−2",
-  		"b":"1−f−b−2",
-  		"c":"1−b−2",
-  		"d":"1−f−e−2",
-  		"ans":"b",
-  		"Explanation":"Didnt understand it either probably done as follows<br>(A) Cost of 1-a-c-2 :<br>100 + 100 + 200 = 400<br>(B) Cost of 1-f-b-2 :<br>100 + 0 + 200 = 300 <br>(C) Cost of 1-b-2 :<br>300 + 200 = 500 <br>(D) Cost of 1-f-e-2 :<br>200 + 100 + 100 = 400 <br>Hence, 1-f-b-2 is having minimum cost. Option (B) is correct."
-  	}
-  ],
-  "7":[
-  {
-  	"question":"Goods and Services Tax (GST) is an indirect tax introduced in India in 2017 that is imposed on the supply of goods and services, and it subsumes all indirect taxes except few. It is a destination-based tax imposed on goods and services used, and it is not imposed at the point of origin from where goods come. GST also has a few components specific to state governments, central government and Union Territories (UTs). Which one of the following statements can be inferred from the given passage ?",
-  	"a":"GST is imposed on the production of goods and services.",
-  	"b":"GST includes all indirect taxes.",
-  	"c":"GST does not have a component specific to UT.",
-  	"d":"GST is imposed at the point of usage of goods and services.",
-  	"ans":"d",
-  	"Explanation":"Dont read the news do you<br>Second statement 'It is a destination-based tax imposed on goods and services used, and it is not imposed at the point of origin from where goods come.'. Option (D) is correct.",
-
-  }],
-  "8":[{
-  	"question":"If P=3, R=27, T=243, then Q+S = ________ .",
-  	"a":"40",
-  	"b":"80",
-  	"c":"90",
-  	"d":"110",
-  	"ans":"c",
-  	"Explanation":"Sorry it wasnt a given<br>Given, sequence is in n-th power of 3. Starting from n=1 and position 'P' alphabetically order.<br>P = 31 = 3 <br>Q = 32 = 9<br>R = 33 = 27<br>S = 34 = 81<br>T = 35 = 243 <br>Therefore,<br>Q+S = 9+81 = 90 <br>Option (C) is correct."
-  }],
-  "9":[{
-  	"question":"The figure below shows an annular ring with outer and inner as b and a, respectively. The annular space has been painted in the form of blue colour circles touching the outer and inner periphery of annular space. If maximum n number of circles can be painted, then the unpainted area available in annular space is _________ . <img src='img/qs/2.png' width='100%' height='100%'>",
-  	"a":"π[(b2−a2)−(n/4)(b−a)2]",
-  	"b":"π[(b2−a2)−n(b−a)2]",
-  	"c":"π[(b2−a2)+(n/4)(b−a)2]",
-  	"d":"π[(b2−a2)+n(b−a)2]",
-  	"ans":"a",
-  	"Explanation":"Hope you got the pie<br>Area of 1 blue circle,<br>= π((b-a)/2)2<br>Hence, area of n blue circles,<br= nπ((b-a)/2)2<br>Now, Area of annular ring<br>= πb2 – πa2 <br>Now, answer is, Unpainted area:<br>= (Area of annular ring) – (Area of n blue color circles)<br>= ( πb2 – πa2 ) - ( nπ((b-a)/2)2 )<br>= π( b2 – a2 ) - π( (n/4)(b-a)2 )<br>= π[(b2−a2)−(n/4)(b−a)2] <br>Option (A) is correct."
-  }],
-  "10":[{
-  	"question":"Two straight lines are drawn perpendicular to each other in X−Y plane. If α and β are the acute angles the straight lines make with the X- axis, then α+β is ________ .",
-  	"a":"60°",
-  	"b":"90°",
-  	"c":"120°",
-  	"d":"180°",
-  	"ans":"b",
-  	"Explanation":"You might need to visualize this one<br>According to given question, <img src='img/qs/3.png' width='100%' height='100%'> Now, as we know that, in a tringle sum of internal angles is equal to 180°. That is,<br>→ ∠a + ∠b + ∠c = 180°<br>→ α + β + 90° = 180° <br>→ α + β = 180° - 90° = 90°<br>→ α + β = 90°<br>Option (B) is correct."
-  }],
-  "11":[{
-  	"question":"The total revenue of a company during 2014−2018 is shown in the bar graph. If the total expenditure of the company in each year is 500 million rupees, then the aggregate profit or loss (in percentage) on the total expenditure of the company during 2014−2018 is _________ . <img src='img/qs/4.png' height='100%' width='100%'>",
-  	"a":"16.67% profit",
-  	"b":"16.67% loss",
-  	"c":"20% profit",
-  	"d":"20% loss",
-  	"ans":"c",
-  	"Explanation":"Might not have been the easiest question out there<br>Bar-graph: 2014-2018, Total expenditure,<br>= 500 million/year = 500 × 5 <br>= 2500 million <br>Now, Revenue total (from the graph),<br>= 400 + 500 + 600 + 700 + 800<br>= 3000 million Therefore, Profit,<br>= 3000 - 2500 = 500 <br>Profit (in percentage),<br>= (500/2500)*100 %<br>= 20 % profit <br>Option (C) is correct."
-  }]
-}
-				// var canvas = document.getElementById("myCanvas");
-				// var context = canvas.getContext('2d');
-				// var imageObj = new Image();
-				// imageObj.onload = function() {
-				// // draw cropped image
-				// var sourceX = 150;
-				// var sourceY = 0;
-				// var sourceWidth = 150;
-				// var sourceHeight = 150;
-				// var destWidth = sourceWidth;
-				// var destHeight = sourceHeight;
-				// var destX = canvas.width / 2 - destWidth / 2;
-				// var destY = canvas.height / 2 - destHeight / 2;
-
-				// context.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
-				
-				// }
-				// imageObj.src = 'img/cat/angry.svg';
-
-
-				counter = Object.keys(superHeroes).length;
-				fill();
-			}
-			
-		}
-		function fill(){
-			document.getElementById('quiz').style.display = ''
-				document.getElementById('quiz').innerHTML=superHeroes[counting][0]['question'];
-				// console.log(document.getElementById('quiz'));
-				document.getElementById('a').innerHTML=superHeroes[counting][0]['a'];
-				document.getElementById('b').innerHTML=superHeroes[counting][0]['b'];
-				document.getElementById('c').innerHTML=superHeroes[counting][0]['c'];
-				document.getElementById('d').innerHTML=superHeroes[counting][0]['d'];
-				
-
-				// console.log(superHeroes[counter[counting]][0]['ans']);
-				// console.log(superHeroes[counter[counting]][0]['Explanation']);
-		}
-		function introover(){
-			var bg = document.getElementById("intro");
-			bg.style.backgroundImage='none';
-			bg.style.backgroundColor='black';
-			
-		}
-		function introout(){
-			var bg = document.getElementById("intro");
-
-			myFunction(x);
-			bg.style.backgroundColor='transparent';
-			
-		}
-
-		function myFunction(x) {
-			var bg = document.getElementById("intro");
-			for (var i = 0; i < 6; i++) {
-				
-		 if (x.matches) { // If media query matches
-		    bg.style.backgroundImage = "url(img/quizmob.svg)";
-		    document.getElementsByClassName('size')[i].style.fontSize = '20px';
-		  } else {
-		    bg.style.backgroundImage = "url(img/quiz.svg)";
-		    document.getElementsByClassName('size')[i].style.fontSize = '40px';
-		  }
-		}
-		}
-
-		var x = window.matchMedia("(max-width: 700px)")
-		myFunction(x) // Call listener function at run time
-		x.addListener(myFunction) // Attach listener function on state changes
 	</script>
+</head>
+<body>
+	<h1 style="font-size:50px"><p>Dominic </p><p>K </p><p>Savio</p></h1>
+	<h3 style="font-size:40px"><p>About </p><p>me </p></h3>
+	<p>Currently studying at Amal Jyothi College in S<p id="sem"></p><br><p>Trying to  come up with a new way to bring our commnities together </p>	</p>
+	<h3 style="font-size:40px"><p>Projects </p><p>I've </p><p>done</p></h3>
+
+	<div style="width:100%;">
+		<div class="column" style="background-image: url('quiz/img/cat/think.svg');" onclick="window.location.href = 'quiz/index.html';"><p>Quiz</p></div>
+		<div class="column" style="background-image: url('quiz/img/pets.jpg');color: white" 
+		onclick="window.location.href ='https://play.google.com/store/apps/details?id=com.littlepetsandaquarium.pets'"><p>Pets</p></div>
+		<div class="column" style="background-image: url('quiz/img/github.png');color: white" onclick="window.location.href = 'https://github.com/dominicksavio?tab=repositories';"><p>More at github</p></div>
+		
+	</div>
+	<br>
+	<h3 style="display: inline-block;font-size:40px"><p>Projects </p><p>I'm </p><p>currently </p><p>working </p><p> on</p></h3>
+	<br>
+		<div class="column" style="background-image: url(quiz/img/streamit.svg);text-align: center;">
+			<p >StreamIt</p>
+		</div><br>
+	<div class="column">
+	<p>It is a system where the data isnt stored for more than an hour and give the host option to join other candidates from waiting room</p></div>
 </body>
 </html>

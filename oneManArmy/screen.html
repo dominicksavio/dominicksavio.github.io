@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>screen rec</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#video {
+		  border: 1px solid #999;
+		  width: 98%;
+		  max-width: 860px;
+		}
+
+		.error {
+		  color: red;
+		}
+
+		.warn {
+		  color: orange;
+		}
+
+		.info {
+		  color: darkgreen;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload= ()=>{
+const videoElem = document.getElementById("video");
+const logElem = document.getElementById("log");
+const startElem = document.getElementById("start");
+const stopElem = document.getElementById("stop");
+console.log(startElem)
+console.log(document.getElementById("start"))
+// Options for getDisplayMedia()
+
+var displayMediaOptions = {
+  video: {
+    cursor: "always"
+  },
+  audio: false
+};
+
+// Set event listeners for the start and stop buttons
+document.getElementById("stop").addEventListener("click", function(evt) {
+  startCapture();
+}, false);
+
+stopElem.addEventListener("click", function(evt) {
+  stopCapture();
+}, false);
+
+function dumpOptionsInfo() {
+  const videoTrack = videoElem.srcObject.getVideoTracks()[0];
+ 
+  console.info("Track settings:");
+  console.info(JSON.stringify(videoTrack.getSettings(), null, 2));
+  console.info("Track constraints:");
+  console.info(JSON.stringify(videoTrack.getConstraints(), null, 2));
+}
+function stopCapture(evt) {
+  let tracks = videoElem.srcObject.getTracks();
+
+  tracks.forEach(track => track.stop());
+  videoElem.srcObject = null;
+}
+async function startCapture() {
+  logElem.innerHTML = "";
+
+  try {
+    videoElem.srcObject = await navigator.mediaDevices.getDisplayMedia(displayMediaOptions).then(handleSuccess);
+    dumpOptionsInfo();
+  } catch(err) {
+    console.error("Error: " + err);
+  }
+}
+console.log = msg => logElem.innerHTML += `${msg}<br>`;
+console.error = msg => logElem.innerHTML += `<span class="error">${msg}</span><br>`;
+console.warn = msg => logElem.innerHTML += `<span class="warn">${msg}<span><br>`;
+console.info = msg => logElem.innerHTML += `<span class="info">${msg}</span><br>`;
+}
+
+
+  let shouldStop = false;
+  let stopped = false;
+
+var handleSuccess = function(stream) {
+	const options = {mimeType: 'video/webm'};
+    let recordedChunks = [];
+    const mediaRecorder = new MediaRecorder(stream, options);
+    
+
+    mediaRecorder.addEventListener('dataavailable', function(e) {
+      if (e.data.size > 0) {
+        recordedChunks.push(e.data);
+      }
+
+      if(shouldStop === true && stopped === false) {
+        mediaRecorder.stop();
+        stopped = true;
+      }
+    });
+
+    mediaRecorder.addEventListener('stop', function() {
+
+      let blob = new Blob(recordedChunks)
+      let url = URL.createObjectURL(blob);
+
+      let video = document.getElementById('video');
+      video.src = url;
+      video.load();
+      video.onloadeddata = function() {
+        video.play();
+      }
+    
+
+      // downloadLink.href = URL.createObjectURL(blob);
+      // downloadLink.download = 'acetest.webm';
+    });
+    mediaRecorder.start(1000);
+  };
+	</script>
+</head>
+<body>
+	<p>This example shows you the contents of the selected part of your display.
+	Click the Start Capture button to begin.</p>
+
+	<p><button id="start">Start Capture</button>&nbsp;<button id="stop">Stop Capture</button></p>
+
+	<video id="video" autoplay></video>
+	<br>
+
+	<strong>Log:</strong>
+	<br>
+	<pre id="log"></pre>
+</body>
+</html>

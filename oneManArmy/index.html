@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>media Recorder</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<video id="player" controls></video>
+
+<div id="result" style="height: 200px"></div>
+<a id="download" style="position: fixed;bottom:0;left:0">Download <br>
+<button id="stop" style="position: fixed;bottom:0;left:0">Stop <br>
+<button style="position: fixed;bottom:0;right:0" onclick="window.location.href = '../index.html';">Back <br>
+  <button style="position: fixed;bottom:0;left:50%" onclick="window.location.href = '/';">Back <br>
+<script>
+  let counter=0;
+  let shouldStop = false;
+  let stopped = false;
+  const downloadLink = document.getElementById('download');
+  const stopButton = document.getElementById('stop');
+  let result = document.getElementById('next')
+const myHeaders = new Headers();
+  stopButton.addEventListener('click', function() {
+    shouldStop = true;
+  })
+
+    var handleSuccess = function(stream) {
+    const options = {mimeType: 'video/webm'};
+    let recordedChunks = [];
+    const mediaRecorder = new MediaRecorder(stream, options);
+    player.srcObject = stream;
+
+    mediaRecorder.addEventListener('dataavailable', function(e) {
+      if (e.data.size > 0) {
+        recordedChunks.push(e.data);
+      }
+
+      if(shouldStop === true && stopped === false) {
+        mediaRecorder.stop();
+        stopped = true;
+      }
+    });
+
+    mediaRecorder.addEventListener('stop', function() {
+      recordedChunks.pop()
+      let blob = new Blob(recordedChunks)
+      let url = URL.createObjectURL(blob);
+
+      var x = document.createElement("video");
+      x.loop=true;
+      x.style.height='100%'
+      x.style.width='auto'
+      x.id='vid'+counter
+      console.log(x.id)
+      document.getElementById('result').appendChild(x)
+      let video = document.getElementById(x.id);
+      video.src = url;
+      video.load();
+      video.onloadeddata = function() {
+        video.play();
+      }
+      recordedChunks=[]
+      counter++
+      shouldStop=false;
+      stopped=false;
+      mediaRecorder.start(1000)
+
+
+      // downloadLink.href = URL.createObjectURL(blob);
+      // downloadLink.download = 'acetest.webm';
+    });
+    mediaRecorder.start(1000);
+  };
+var player = document.getElementById('player');
+navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+      .then(handleSuccess)
+</script>

@@ -3,6 +3,14 @@
 <head>
   <title>media Recorder</title>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <style type="text/css">
+    button{
+      padding: 20px;
+      font-size:50px;
+      background-color: black;
+      color: white;
+    }
+  </style>
 </head>
 <body>
 <video id="player" controls></video>
@@ -11,7 +19,7 @@
 <a id="download" style="position: fixed;bottom:0;left:0">Download <br>
 <button id="stop" style="position: fixed;bottom:0;left:0">Stop <br>
 <button style="position: fixed;bottom:0;right:0" onclick="window.location.href = '../index.html';">Back <br>
-  <button style="position: fixed;bottom:0;left:50%" onclick="window.location.href = '/';">Back <br>
+  <button style="position: fixed;bottom:0;left:50%" onclick="window.location.href = '/';">Redo <br>
 <script>
   let counter=0;
   let shouldStop = false;

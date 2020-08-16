@@ -1,88 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 	<title>Dominic K Savio</title>
-	<link rel="stylesheet" type="text/css" href="quiz/style.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1" charset="utf-8">
-	<style type="text/css">
-	* {
-	  box-sizing: border-box;
-	  text-align: center;
-	}
-
-	/* Create three equal columns that floats next to each other */
-	.column {
-	  float: left;
-	  width: 33.33%;
-	  padding: 10px;
-	  height: 300px; /* Should be removed. Only for demonstration */
-	}
-
-	/* Clear floats after the columns */
-	.row:after {
-	  content: "";
-	  display: table;
-	  clear: both;
-	}
-	div {
-		font-size: 30px;
-		background-size: contain;
-		background-repeat: no-repeat;
-		height: 200px
-	}
-	 /* Responsive layout - when the screen is less than 600px wide, make the three columns stack on top of each other instead of next to each other */
-	@media screen and (max-width: 600px) {
-	  .column {
-	    width: 100%;
-	  }
-	} 
-	p:hover{
-		font-size: 150%;
-	}
-	p{
-		transition: 0.3s;	
-		display:inline;
-	}
-	.column:hover{
-		height: 170%;
-	}
-	.column{
-		transition: 0.3s;	
-		
-	}
-	::selection {
-		color: white;
-		background: black;
-	}
-	</style>
-	<script type="text/javascript">
-		window.onload = function (argument) {
-			var year=new Date()
-			document.getElementById('sem').innerHTML=(year.getFullYear()-2017)*2
-			
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<style>
+		.bg-1 {
+		background-color: #1abc9c; /* Green */
+		color: #ffffff;
 		}
-	</script>
+		.bg-2 {
+		background-color: #474e5d; /* Dark Blue */
+		color: #ffffff;
+		}
+		.bg-3 {
+		background-color: #ffffff; /* White */
+		color: #555555;
+		}
+		.bg-4 {
+		background-color: #2f2f2f;
+		color: #ffffff;
+		}
+		.container-fluid {
+		padding-top: 70px;
+		padding-bottom: 70px;
+		}
+		.navbar {
+		padding-top: 15px;
+		padding-bottom: 15px;
+		border: 0;
+		border-radius: 0;
+		margin-bottom: 0;
+		font-size: 12px;
+		letter-spacing: 5px;
+		}
+		.pointer {cursor: pointer;}
+		.navbar-nav li a:hover {
+		color: #1abc9c !important;
+		}
+	</style>
 </head>
 <body>
-	<h1 style="font-size:50px"><p>Dominic </p><p>K </p><p>Savio</p></h1>
-	<h3 style="font-size:40px"><p>About </p><p>me </p></h3>
-	<p>Currently studying at Amal Jyothi College in S<p id="sem"></p><br><p>Trying to  come up with a new way to bring our commnities together </p>	</p>
-	<h3 style="font-size:40px"><p>Projects </p><p>I've </p><p>done</p></h3>
+ <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Me</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html#who">WHO</a></li>
+        <li><a href="index.html#what">WHAT</a></li>
+        <li><a href="index.html#where">FOLLOW ME @</a></li>
+        <li><a href="index.html#Projects">PROJECTS</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> 
+<div id="who" class="container-fluid bg-1 text-center">
+	<h3>Who Am I?</h3>
+	<img src="./cat.jpeg" alt="cat" class="img-responsive img-circle" style="display:inline">
+	<h3>I'm Dominic</h3>
+</div>
+<div id="what" class="container-fluid bg-2 text-center">
+  <h3>What Am I?</h3>
+  <p>I am a student.</p>
+</div>
 
-	<div style="width:100%;">
-		<div class="column" style="background-image: url('quiz/img/cat/think.svg');" onclick="window.location.href = 'quiz/index.html';"><p>Quiz</p></div>
-		<div class="column" style="background-image: url('quiz/img/pets.jpg');color: white" 
-		onclick="window.location.href ='https://play.google.com/store/apps/details?id=com.littlepetsandaquarium.pets'"><p>Pets</p></div>
-		<div class="column" style="background-image: url('quiz/img/github.png');color: white" onclick="window.location.href = 'https://github.com/dominicksavio?tab=repositories';"><p>More at github</p></div>
-		<div class="column" style="background-image: url('oneManArmy/drawing.svg');" onclick="window.location.href = 'oneManArmy/index.html';"><p>Timepass</p></div>
+<div id="where" class="container-fluid bg-3 text-center">
+  <h3>Where To Find Me?</h3>
+  	<div class="row">
+		<div class="col-sm-3 pointer" onclick="window.location.href = 'https://instagram.com/dskuncheria11';">
+	      <img src="./img/instagram.svg" height="200" alt="instagram">
+	    </div>
+	    <div class="col-sm-3 pointer" onclick="window.location.href = 'https://www.facebook.com/DKSavio/';">
+	      <img src="./img/facebook.svg" height="200" alt="facebook">
+	    </div>
+	    <div class="col-sm-3 pointer" onclick="window.location.href = 'https://www.linkedin.com/in/dominic-k-savio-671782166/';">
+	      <img src="./img/linkedin.svg" height="200" alt="linkedin">
+	    </div>
+	    <div class="col-sm-3 pointer" onclick="window.location.href = 'https://twitter.com/DominicKSavio1';">
+	      <img src="./img/twitter.svg" height="200" alt="twitter">
+	    </div>
+    
 	</div>
-	<br>
-	<h3 style="display: inline-block;font-size:40px"><p>Projects </p><p>I'm </p><p>currently </p><p>working </p><p> on</p></h3>
-	<br>
-		<div class="column" style="background-image: url(quiz/img/streamit.svg);text-align: center;">
-			<p >StreamIt</p>
-		</div><br>
-	<div class="column">
-	<p>It is a system where the data isnt stored for more than an hour and give the host option to join other candidates from waiting room</p></div>
+</div>
+ <div class="container-fluid bg-1 text-center" id="Projects">
+  <h3>My Projects</h3>
+  <div class="row">
+    <div class="col-sm-3 pointer" onclick="window.location.href = 'quiz/index.html';">
+      <img src="quiz/img/cat/think.svg" height="200" alt="cat">
+      <p>Cat Quiz</p>
+    </div>
+    <div class="col-sm-3 pointer" onclick="window.location.href ='https://play.google.com/store/apps/details?id=com.littlepetsandaquarium.pets'">
+      <img src="quiz/img/pets.jpg" alt="Image">
+      <p>Pets</p>
+    </div>
+    <div class="col-sm-3 pointer" onclick="window.location.href = 'oneManArmy/index.html';">
+      <img src="oneManArmy/drawing.svg" height="200" alt="Image">
+      <p>Multiple Recorder</p>
+    </div>
+    <div class="col-sm-3 pointer" onclick="window.location.href = 'https://github.com/dominicksavio?tab=repositories';">
+      <img src="quiz/img/github.png" height="200" alt="Image">
+      <p>More at github</p>
+    </div>
+  </div>
+</div> 
+<footer class="container-fluid bg-4 text-center">
+  Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+  <p>Site by Dominic K Savio</p>
+</footer>
+
+
 </body>
 </html>
